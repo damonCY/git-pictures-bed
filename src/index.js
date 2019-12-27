@@ -27,21 +27,21 @@ class PictureBed {
     }
     const repoPath = path.resolve(__dirname, '../repo');
     // 克隆仓库
-    // util.spawn(`git clone ${git}`, {
-    //   cwd: repoPath
-    // });
-    // const repoName = glob.sync('*', {
-    //   cwd: repoPath
-    // })[0];
-    // const config = {
-    //   git,
-    //   name: util.getUserName(git),
-    //   repoName,
-    //   repoPath: path.resolve(repoPath, repoName),
-    //   originRepo: git.replace(/^git@/, 'https:').replace(/\.git$/, '')
-    // }
-    // this.updateConfig(config);
-    // this.updataReadMe(repoName);
+    util.spawn(`git clone ${git}`, {
+      cwd: repoPath
+    });
+    const repoName = glob.sync('*', {
+      cwd: repoPath
+    })[0];
+    const config = {
+      git,
+      name: util.getUserName(git),
+      repoName,
+      repoPath: path.resolve(repoPath, repoName),
+      originRepo: git.replace(/:/, '/').replace(/^git@/, 'https://').replace(/\.git$/, '')
+    }
+    this.updateConfig(config);
+    this.updataReadMe(repoName);
     this.gitPush('upload: first commit');
   }
 
@@ -49,7 +49,7 @@ class PictureBed {
     const basename = path.basename(filePath);
     const repoInfo = this.getRepoInfo();
     fse.copyFileSync(filePath, repoInfo.localRepoDataP + '/' + basename);
-    this.gitPush(`添加文件 ${basename}`);
+    this.gitPush(`添加文件${basename}`);
     this.showTips(basename);
   }
 
@@ -79,23 +79,21 @@ class PictureBed {
   }
 
   showTips(filename) {
+    console.log('当前仓库地址为：' + chalk.green(this.config.originRepo));
+
     if(filename) {
       const {repoName, name} = this.config;
       const baseUrl = 'https://raw.githubusercontent.com/';
       const origin = `${baseUrl}${name}/${repoName}/master/data/${filename}`;
-      console.log(`线上地址为：${origin}`);
-    } else {
-
+      console.log(`文件地址：${origin}`);
     }
-    console.log('当前仓库地址为：' + chalk.green(this.config.originRepo));
   }
 
   gitPush(txt = 'update') {
     const repoInfo = this.getRepoInfo();
-    console.log('====', repoInfo.repoPath);
     try {
       util.spawn('git add .', {cwd: repoInfo.repoPath });
-      util.spawn(`git commit -m "${txt}"`, {cwd: repoInfo.repoPath });
+      util.spawn(`git commit -m ${txt}`, {cwd: repoInfo.repoPath });
       util.spawn('git push origin master', {cwd: repoInfo.repoPath });
       console.log(chalk.bold.green(`更新到远程仓库成功：${txt}`));
     } catch (error) {

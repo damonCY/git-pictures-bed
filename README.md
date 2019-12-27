@@ -22,3 +22,10 @@ Options:
   --update           升级工具版本
   -h, --help         output usage information
 ```
+
+#### 上传图片
+
+```shell
+pb --path '/xxx/image-20191227123429799.png'
+```
+[image-20191227124230098.png](https://raw.githubusercontent.com/damonCY/image_db/master/data/image-20191227124230098.png)

@@ -1,1 +1,1 @@
-### 欢迎使用 github-repo
+### 欢迎使用 git-pictures-bed
