@@ -28,4 +28,4 @@ Options:
 ```shell
 pb --path '/xxx/image-20191227123429799.png'
 ```
-[image-20191227124230098.png](https://raw.githubusercontent.com/damonCY/image_db/master/data/image-20191227124230098.png)
+![image-20191227124230098.png](https://raw.githubusercontent.com/damonCY/image_db/master/data/image-20191227124230098.png)
