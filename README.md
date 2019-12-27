@@ -1,7 +1,6 @@
 # git-pictures-bed
 
 
-
 利用github做图床
 
 ## Installation
@@ -22,6 +21,12 @@ Options:
   --update           升级工具版本
   -h, --help         output usage information
 ```
+
+#### 初始化
+在github上创建一个仓库作为存放图片的地方。
+执行命令：`pb --init git@xxxx` (git@xxx 为git地址)
+
+![pb --init](https://raw.githubusercontent.com/damonCY/image_db/master/data/image-20191227130735049.png)
 
 #### 上传图片
 

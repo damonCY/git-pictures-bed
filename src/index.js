@@ -43,6 +43,7 @@ class PictureBed {
     this.updateConfig(config);
     this.updataReadMe(repoName);
     this.gitPush('upload: first commit');
+    console.log(chalk.green.bold('初始化仓库完成，开始上传图片吧！'));
   }
 
   addImage(filePath) {

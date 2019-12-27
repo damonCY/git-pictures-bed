@@ -1,11 +1,12 @@
 {
   "name": "git-pictures-bed",
-  "version": "0.0.3",
-  "description": "",
+  "version": "0.0.4",
+  "description": "利用github托管的图床工具",
   "main": "src/index.js",
   "bin": {
     "pb": "bin/cli.js"
   },
+  "keywords": [],
   "files": [
     "bin",
     "src",
@@ -18,13 +19,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "chenyong.damon-byted",
+  "author": "damonCY",
   "license": "ISC",
   "dependencies": {
     "chalk": "^3.0.0",
     "commander": "^4.0.1",
-    "commmander": "0.0.1-security",
     "fs-extra": "^8.1.0",
     "glob": "^7.1.6"
   }
