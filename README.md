@@ -34,15 +34,15 @@ git@xxx 为创建仓库的git地址
 
 ![pb --init](https://raw.githubusercontent.com/damonCY/image_db/master/data/image-20191227130735049.png)
 
-### 上传图片
+### 两种方式上传图片
 
-#### 命令行上传图片
+#### 1、命令行上传图片
 ```shell
 pb --path '/xxx/image-20191227123429799.png'
 ```
 ![image-20191227124230098.png](https://raw.githubusercontent.com/damonCY/image_db/master/data/image-20191227124230098.png)
 
-#### 本地服务上传图片
+#### 2、本地服务上传图片
 ```shell
 pb --server
 ```
