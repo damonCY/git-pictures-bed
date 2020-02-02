@@ -48,7 +48,7 @@ class Collector extends Upload{
       const extname = path.extname(item).replace(/^\./, '');
       if (extname && extnameMap.includes(extname.toUpperCase())) {
         const url = baseOrigin + 'data/' + path.basename(item);
-        map.push(url);
+        map.unshift(url);
       }
     })
     return map;

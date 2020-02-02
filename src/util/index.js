@@ -2,7 +2,7 @@ const child = require('child_process')
 
 module.exports = {
   update() {
-    child.execSync(`npm install git-picures-bed -g`, { stdio: 'inherit' });
+    child.execSync(`npm install git-pictures-bed -g`, { stdio: 'inherit' });
   },
   getUserName(git) {
     const matches = git.match(/github\.com:(.*)\/.*/);

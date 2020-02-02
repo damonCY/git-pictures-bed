@@ -17,8 +17,6 @@ program
       cmd.init(options);
     } else if(options.path) {
       cmd.addFile(options);
-    } else if (options.update) {
-      cmd.update();
     } else if (options.server){
       cmd.server();
     }

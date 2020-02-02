@@ -4,8 +4,8 @@ const baseConfig = require('./webpack.base.conf.js');
 module.exports = merge(baseConfig, {
   mode: 'development',
   devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './dist',
-    port: 5000
-  }
+  // devServer: {
+  //   contentBase: './dist',
+  //   port: 5000
+  // }
 });

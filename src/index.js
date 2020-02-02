@@ -33,7 +33,7 @@ class PictureBed {
     util.spawn(`git clone ${git}`, {
       cwd: repoPath
     });
-    const repoName = glob.sync('*', {
+    const repoName = glob.sync('!(.)*', {
       cwd: repoPath
     })[0];
     const config = {
@@ -43,11 +43,13 @@ class PictureBed {
       repoPath: path.resolve(repoPath, repoName),
       originRepo: git.replace(/:/, '/').replace(/^git@/, 'https://').replace(/\.git$/, '')
     }
+    console.log('repo path: ', config.repoPath);
+
     if (!fse.existsSync(config.repoPath)) {
-      this.updateConfig(config);
       this.updataReadMe(repoName);
-      this.gitPush('upload: first commit');
     }
+    this.updateConfig(config);
+    this.gitPush('upload: first commit');
     console.log(chalk.green.bold('初始化仓库完成，开始上传图片吧！'));
   }
 

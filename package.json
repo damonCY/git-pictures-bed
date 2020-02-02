@@ -1,6 +1,6 @@
 {
   "name": "git-pictures-bed",
-  "version": "0.0.9",
+  "version": "0.0.13",
   "description": "利用github托管的图床工具",
   "main": "src/index.js",
   "bin": {

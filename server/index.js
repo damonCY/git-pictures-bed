@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const fse = require('fs-extra');
 const Koa = require('koa');
 const Router = require('koa-router');
 const chalk = require('chalk');
@@ -23,7 +24,7 @@ router.get('/list', (ctx) => {
     console.log(`something wrong: ${error.message}`);
   }
 })
-router.post('/file', ctx => {
+router.post('/file', async ctx => {
   ctx.set('Access-Control-Allow-Origin', '*');
    
   const file = ctx.request.files.file;	// 获取上传文件
@@ -35,32 +36,23 @@ router.post('/file', ctx => {
   const time = new Date().valueOf();
   const fileName = `${preTime}_${time}.${ext}`;
   // const fileName = preTime + '_' + file.name;
+  fse.ensureDirSync(path.resolve(config.repoPath, 'data'));
 	const upStream = fs.createWriteStream(path.resolve(config.repoPath, 'data', fileName));		// 创建可写流
   reader.pipe(upStream);
   ctx.body = {
     status: 'done'
-  }
+  };
   reader.on('close', () => {
     collector.addImg(fileName).then(() => {
-      ctx.body = {
-        status: 'done'
-      };
-    }).catch(err => {
-      ctx.body = {
-        status: 'error',
-        msg: err
-      }
     })   
   })
-
-  reader.on('error', () => {
+  reader.on('error', (err) => {
     ctx.body = {
       file: {
         status: 'error',
       }
-    }  
+    }
   })
-	
 })
 
 router.get('/', (ctx) => {
