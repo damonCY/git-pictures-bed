@@ -1,0 +1,35 @@
+{
+  "name": "pictures-bed-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --host 127.0.0.1 --open --config webpack.dev.conf.js ",
+    "build": "webpack --config webpack.prod.conf.js"
+  },
+  "keywords": [],
+  "author": "chenyong.damon-byted",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-react": "^7.7.4",
+    "antd": "^3.26.4",
+    "axios": "^0.19.0",
+    "babel-loader": "^8.0.6",
+    "rc-upload": "^3.0.0-alpha.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.4.0",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^1.1.2",
+    "webpack-dev-server": "^3.10.1",
+    "webpack-merge": "^4.2.2"
+  }
+}

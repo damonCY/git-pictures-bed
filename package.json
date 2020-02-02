@@ -1,6 +1,6 @@
 {
   "name": "git-pictures-bed",
-  "version": "0.0.4",
+  "version": "0.0.9",
   "description": "利用github托管的图床工具",
   "main": "src/index.js",
   "bin": {
@@ -10,7 +10,9 @@
   "files": [
     "bin",
     "src",
-    "README.md"
+    "client/dist",
+    "README.md",
+    "server"
   ],
   "repository": {
     "type": "git",
@@ -22,9 +24,16 @@
   "author": "damonCY",
   "license": "ISC",
   "dependencies": {
+    "art-template": "^4.13.2",
+    "axios": "^0.19.0",
     "chalk": "^3.0.0",
     "commander": "^4.0.1",
     "fs-extra": "^8.1.0",
-    "glob": "^7.1.6"
+    "glob": "^7.1.6",
+    "koa": "^2.11.0",
+    "koa-body": "^4.1.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "open": "^7.0.2"
   }
 }

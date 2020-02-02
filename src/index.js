@@ -1,4 +1,3 @@
-const child = require('child_process');
 const path = require('path');
 const fse = require('fs-extra');
 const glob = require('glob');
@@ -13,11 +12,14 @@ class PictureBed {
 
   init() {
     const configPath = path.resolve(__dirname, '../upload.config.json');
-    const configData = fse.readJSONSync(configPath)
-    const repoPath = path.resolve(__dirname, '../repo', configData.repoName)
-    this.config = configData;
-    this.config.repoPath = repoPath;
-    return configData;
+    if (fse.existsSync(configPath)) {
+      const configData = fse.readJSONSync(configPath)
+      const repoPath = path.resolve(__dirname, '../repo', configData.repoName)
+      this.config = configData;
+      this.config.repoPath = configData.repoPath || repoPath;
+      return configData;
+    }
+    
   }
 
   initLocal(git) {
@@ -26,6 +28,7 @@ class PictureBed {
       return console.log('### 请输入git地址 ###');
     }
     const repoPath = path.resolve(__dirname, '../repo');
+    fse.ensureDirSync(repoPath);
     // 克隆仓库
     util.spawn(`git clone ${git}`, {
       cwd: repoPath
@@ -40,18 +43,31 @@ class PictureBed {
       repoPath: path.resolve(repoPath, repoName),
       originRepo: git.replace(/:/, '/').replace(/^git@/, 'https://').replace(/\.git$/, '')
     }
-    this.updateConfig(config);
-    this.updataReadMe(repoName);
-    this.gitPush('upload: first commit');
+    if (!fse.existsSync(config.repoPath)) {
+      this.updateConfig(config);
+      this.updataReadMe(repoName);
+      this.gitPush('upload: first commit');
+    }
     console.log(chalk.green.bold('初始化仓库完成，开始上传图片吧！'));
   }
 
-  addImage(filePath) {
-    const basename = path.basename(filePath);
-    const repoInfo = this.getRepoInfo();
-    fse.copyFileSync(filePath, repoInfo.localRepoDataP + '/' + basename);
-    this.gitPush(`添加文件${basename}`);
-    this.showTips(basename);
+  // addImage(filePath) {
+  //   const basename = path.basename(filePath);
+  //   const repoInfo = this.getRepoInfo();
+  //   fse.copyFileSync(filePath, repoInfo.localRepoDataP + '/' + basename);
+  //   this.gitPush(`添加文件${basename}`);
+  //   this.showTips(basename);
+  // }
+
+  addImg(filename) {
+    if(!filename) {
+      return;
+    }
+    return new Promise(resove => {
+      this.gitPush(`添加文件${filename}`);
+      this.showTips(filename);
+      resove()
+    })
   }
 
   getRepoInfo() {
@@ -104,7 +120,10 @@ class PictureBed {
 
   updateConfig(obj) {
     const configPath = path.resolve(__dirname, '../upload.config.json');
-    const configData = fse.readJSONSync(configPath);
+    let configData = {}
+    if(fse.existsSync(configPath)) {
+      configData = require(configPath);
+    }
     // 合并对象
     Object.assign(configData, obj);
     fse.writeJSONSync(configPath, configData);

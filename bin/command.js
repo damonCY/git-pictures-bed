@@ -2,6 +2,7 @@ const fse = require('fs-extra');
 const path = require('path');
 const PictureBed = require('../src/index');
 const util = require('../src/util/index');
+const server = require('../server/index');
 
 const pictureBed = new PictureBed();
 
@@ -12,6 +13,7 @@ module.exports = {
   // 初始化环境
   init(options) {
     pictureBed.initLocal(options.init);
+    server.start();
   },
   // 升级版本
   update() {
@@ -34,5 +36,8 @@ module.exports = {
         console.log('当前路径不存在图片文件');
       }
     }
+  },
+  server() {
+    server.start();
   }
 }
