@@ -1,49 +1,77 @@
 # git-pictures-bed
 
+A practical image hosting tool built on top of GitHub repositories.
 
-利用github做图床
+`git-pictures-bed` provides two upload workflows:
+
+- a CLI command for uploading local images
+- a local web uploader for drag-and-drop style usage
+
+Uploaded files are pushed to a GitHub repository and can then be accessed through raw GitHub URLs.
 
 ## Installation
-```console
-npm install git-pictures-bed -g
+
+```bash
+npm install -g git-pictures-bed
 ```
 
-## Compatibility
+## CLI
 
+```bash
 pb -h
-```js
+```
+
+```text
 Usage: pb [options]
 
 Options:
   -V, --version      output the version number
-  -p, --path <path>  上传指定路径下的文件
-  --init <git>       初始化环境（git地址）
-  --update           升级工具版本
-  --server           启动本地服务
+  -p, --path <path>  upload a file from a local path
+  --init <git>       initialize with a Git repository URL
+  --update           update the tool version
+  --server           start the local upload service
   -h, --help         output usage information
 ```
 
-### 初始化
-在github上[创建一个空仓库](https://github.com/new)作为存放图片的地方。
+## Quick Start
 
-```shell
-pb --init git@xxxx
+### 1. Create an empty GitHub repository
+
+Create a repository that will be used to store uploaded images.
+
+### 2. Initialize the tool
+
+```bash
+pb --init git@github.com:your-name/your-image-repo.git
 ```
 
-git@xxx 为创建仓库的git地址
+This step stores local configuration and prepares the target repository.
 
-![pb --init](https://raw.githubusercontent.com/damonCY/image_db/master/data/image-20191227130735049.png)
+### 3. Upload an image from the command line
 
-### 两种方式上传图片
-
-#### 1、命令行上传图片
-```shell
-pb --path '/xxx/image-20191227123429799.png'
+```bash
+pb --path "/absolute/path/to/example.png"
 ```
-![image-20191227124230098.png](https://raw.githubusercontent.com/damonCY/image_db/master/data/image-20191227124230098.png)
 
-#### 2、本地服务上传图片
-```shell
+### 4. Start the local upload service
+
+```bash
 pb --server
 ```
-![2020-2-2_1580656796133.png](https://raw.githubusercontent.com/damonCY/image_db/master/data/2020-2-2_1580656796133.png)
+
+This starts a local web interface for uploading images from the browser.
+
+## How it works
+
+The tool clones the target repository locally, copies uploaded files into the repository, commits the changes, and pushes them back to GitHub. After upload, the image can be referenced through the raw GitHub content URL.
+
+## Project Structure
+
+- `bin/` — CLI entry and command handling
+- `src/` — upload logic and local configuration handling
+- `server/` — local upload service
+- `client/` — front-end assets for the local uploader
+
+## Use Case
+
+This project is useful for people who want a lightweight personal image bed based on GitHub instead of a separate storage service.
